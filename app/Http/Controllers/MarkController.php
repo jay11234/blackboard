@@ -14,7 +14,8 @@ class MarkController extends Controller
      */
     public function index()
     {
-        //
+        $marks = Mark::all();
+        return view('marks.index',compact('marks'));
     }
 
     /**
@@ -63,7 +64,8 @@ class MarkController extends Controller
      */
     public function edit($id)
     {
-        //
+        $mark = Mark::find($id);
+        return view('marks.edit', compact('mark'));
     }
 
     /**
@@ -75,7 +77,12 @@ class MarkController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $mark = Mark::find($id);
+        $mark->mark = $request->get('mark');
+        $mark->paper_id=$request->get('paper_id');
+        $mark->when = $request->get('when');
+        $mark->save();
+        return redirect('/marks')->with('success','Mark has been updated');
     }
 
     /**
@@ -86,6 +93,8 @@ class MarkController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $mark = Mark::find($id);
+        $mark->delete();
+        return redirect('/marks')->with('success','Mark has been deleted');
     }
 }

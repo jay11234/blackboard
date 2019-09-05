@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Paper;
 
 class PaperController extends Controller
 {
@@ -13,7 +14,8 @@ class PaperController extends Controller
      */
     public function index()
     {
-        //
+        $papers = Paper::all();
+        return view('papers.index', compact('papers'));
     }
 
     /**
@@ -23,7 +25,7 @@ class PaperController extends Controller
      */
     public function create()
     {
-        //
+        return view('papers.create');
     }
 
     /**
@@ -34,7 +36,12 @@ class PaperController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $paper = new Paper([
+            'name' => $request->get('name'),
+            'description' => $request->get('description')
+        ]);
+        $paper->save();
+        return redirect('/papers')->with('success', 'Paper has been added');
     }
 
     /**
@@ -56,7 +63,8 @@ class PaperController extends Controller
      */
     public function edit($id)
     {
-        //
+        $paper = Paper::find($id);
+        return view('papers.edit', compact('paper'));
     }
 
     /**
@@ -68,7 +76,11 @@ class PaperController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $paper = Paper::find($id);
+        $paper->name = $request->get('name');
+        $paper->description=$request->get('description');
+        $paper->save();
+        return redirect('/papers')->with('success','Paper has been updated');
     }
 
     /**
@@ -79,6 +91,8 @@ class PaperController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $paper=Paper::find($id);
+        $paper->delete();
+        return redirect('/papers')->with('success','Paper has been deleted');
     }
 }

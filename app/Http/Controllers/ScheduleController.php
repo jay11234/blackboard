@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Schedule;
+use Carbon;
 
 class ScheduleController extends Controller
 {
@@ -13,7 +15,8 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        //
+        $papers = Paper::all();
+        return view('schedules.index', compact('papers'));
     }
 
     /**
@@ -23,7 +26,7 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        //
+        return view('schedules.create');
     }
 
     /**
@@ -34,7 +37,17 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $schedule = new Schedule([
+            'paper_id' => $request->get('paper_id'),
+            'day' => $request->get('day'),
+            'begin' => \Carbon\Carbon::parse($request->get('begin'))->format('d/m/Y'),
+            'end' => \Carbon\Carbon::parse($request->get('begin'))->format('d/m/Y'),
+            'strength' => $request->get('strength'),
+            'preview' => $request->get('preview')
+        ]);
+        $schedule->save();
+        return view('/schedules')->with('success', 'Schedule has been added');
     }
 
     /**
@@ -56,7 +69,8 @@ class ScheduleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $shedule = Schedule::find($id);
+        return view('schedules.edit', compact('schedule'));
     }
 
     /**
@@ -68,7 +82,16 @@ class ScheduleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        ['paper_id', 'day', 'begin', 'end', 'strength', 'preview'];
+        $schedule = Schedule::find($id);
+        $schedule->paper_id = $request->get('paper_id');
+        $schedule->day = $request->get('day');
+        $schedule->begin = \Carbon\Carbon::parse($request->get('begin'))->format('d/m/Y');
+        $schedule->end = \Carbon\Carbon::parse($request->get('begin'))->format('d/m/Y');
+        $schedule->strength = $request->get('strength');
+        $schedule->preview = $request->get('preview');
+        $schedule->save();
+        return view('schedules')->with('success','Schedule has been updated');
     }
 
     /**
@@ -79,6 +102,8 @@ class ScheduleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $schedule = Schedule::find($id);
+        $schedule->delete();
+        return view('/schedules')->with('success','Schedule has been deleted');
     }
 }

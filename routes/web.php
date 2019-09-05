@@ -16,7 +16,7 @@
 //     return view('welcome');
 // });
 
-Route::get('/', 'HomeController@welcome');
+Route::get('/', 'HomeController@welcome')->name('welcome');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('papers/list', 'PaperController@index');
@@ -28,13 +28,10 @@ Route::get('schedules/show/{id}', 'ScheduleController@show');
 Route::get('tutors/list', 'TutorController@index');
 Route::get('tutors/show/{id}', 'TutorController@show');
 Route::resource('papers','PaperController')->middleware('auth:web');
-Route::resource('marks', 'MarkController')->middleware('auth:web');
+Route::resource('marks', 'MarkController');
 Route::resource('schedules', 'ScheduleController')->middleware('auth:web');
 Route::resource('tutors', 'TutorController')->middleware('auth:web');
-
-
-Auth::routes();
+ 
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+ 

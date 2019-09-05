@@ -131,22 +131,22 @@
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/tutors/index') }}" id="navbarItems">Tutors</a>
+                            <a class="nav-link" href="{{ url('/tutors') }}" id="navbarItems">Tutors</a>
 
                         </li>
                         <li class="nav-item">
 
-                            <a class="nav-link" href="{{ url('/marks/index') }}" id="navbarItems">Marks</a>
+                            <a class="nav-link" href="{{ url('/marks') }}" id="navbarItems">Marks</a>
 
                         </li>
                         <li class="nav-item">
 
-                            <a class="nav-link" href="{{ url('/schedules/index') }}" id="navbarItems">Schedules</a>
+                            <a class="nav-link" href="{{ url('/schedules') }}" id="navbarItems">Schedules</a>
 
                         </li>
                         <li class="nav-item">
 
-                            <a class="nav-link" href="{{ url('/papers/index') }}" id="navbarItems">Papers</a>
+                            <a class="nav-link" href="{{ url('/papers') }}" id="navbarItems">Papers</a>
                         </li>
                     </ul>
 

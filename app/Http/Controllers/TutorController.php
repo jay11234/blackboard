@@ -41,7 +41,7 @@ class TutorController extends Controller
             'description'=>$request->get('description')
         ]);
         $tutor->save();
-        return redirect('/tutors')->with(['success','Tutor has been added']);
+        return redirect('/tutors')->with('success','Tutor has been added');
     }
 
     /**
@@ -78,13 +78,9 @@ class TutorController extends Controller
     {
         $tutor = Tutor::find($id);
         $tutor->name= $request->get('name');
-        
-         
-            'name' => $request->get('name'),
-            'description' => $request->get('description')
-        
+        $tutor->description = $request->get('description');
         $tutor->save();
-        return redirect('/tutors')->with(['success', 'Tutor has been updated']);
+        return redirect('/tutors')->with('success', 'Tutor has been updated');
    
     }
 
@@ -99,6 +95,6 @@ class TutorController extends Controller
         $tutor = Tutor::find($id);
         $tutor->delete();
 
-        return redirect('/tutors')->with('success', 'Tutor has been deleted Successfully');
+        return redirect('/tutors')->with('success', 'Tutor has been deleted');
     }
 }
