@@ -12,6 +12,9 @@
         {{ session()->get('success') }}
     </div><br />
     @endif
+
+    <a href="{{route('tutors.create')}}"><button class="btn btn-dark"> Add</button></a>
+    <br><br>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -28,9 +31,10 @@
                 <td>{{$tutor->id}}</td>
                 <td>{{$tutor->name}}</td>
                 <td>{{$tutor->description}}</td>
-                 <td><a href="{{ route('tutors.edit',$tutor->id)}}" class="btn btn-primary">Edit</a></td>
-                <td>
-                    <form action="{{ route('tutors.destroy', $tutor->id)}}" method="post">
+                <td class="form-inline">
+                    <a href="{{ route('tutors.edit',$tutor->id)}}" class="btn btn-primary">Edit</a>
+
+                    <form class=" " action="{{ route('tutors.destroy', $tutor->id)}}" method="post">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger" type="submit">Delete</button>

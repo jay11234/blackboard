@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Mark;
+use App\Paper;
 
 class MarkController extends Controller
 {
@@ -15,7 +16,14 @@ class MarkController extends Controller
     public function index()
     {
         $marks = Mark::all();
-        return view('marks.index',compact('marks'));
+        $papers = Paper::all();
+        
+        return view('marks.index', compact('marks','papers'));
+    }
+    public function listInJson()
+    {
+        $marks = Mark::all();
+        return response()->json($marks, 200);
     }
 
     /**
@@ -25,7 +33,8 @@ class MarkController extends Controller
      */
     public function create()
     {
-        return view('marks.create');
+        $papers = Paper::all();
+        return view('marks.create', compact('papers'));
     }
 
     /**
@@ -36,13 +45,15 @@ class MarkController extends Controller
      */
     public function store(Request $request)
     {
+        $date = date("Y-d-m", strtotime($request->get('when')));
         $mark = new Mark([
-            'mark'=>$request->get('mark'),
-            'when'=>$request->get('when'),
-            'paper_id'=>$request->get('paper_id')
+            'mark' => $request->get('mark'),
+            'when' => $date,
+            'assignment'=>$request->get('assignment'),
+            'paper_id' => $request->input('papers')
         ]);
         $mark->save();
-        return redirect('/marks')->with('succes','Mark has been added');
+        return redirect('/marks')->with('succes', 'Mark has been added');
     }
 
     /**
@@ -53,7 +64,8 @@ class MarkController extends Controller
      */
     public function show($id)
     {
-        //
+        $mark = Mark::find($id);
+        return response()->json($mark, 200);
     }
 
     /**
@@ -65,7 +77,8 @@ class MarkController extends Controller
     public function edit($id)
     {
         $mark = Mark::find($id);
-        return view('marks.edit', compact('mark'));
+        $papers = Paper::all();
+        return view('marks.edit', compact('mark','papers'));
     }
 
     /**
@@ -78,11 +91,13 @@ class MarkController extends Controller
     public function update(Request $request, $id)
     {
         $mark = Mark::find($id);
+        $date = date("Y-d-m", strtotime($request->get('when')));
         $mark->mark = $request->get('mark');
-        $mark->paper_id=$request->get('paper_id');
-        $mark->when = $request->get('when');
+        $mark->paper_id = $request->get('paper');
+        $mark->when = $date;
+        $mark->assignment=$request->get('assignment');
         $mark->save();
-        return redirect('/marks')->with('success','Mark has been updated');
+        return redirect('/marks')->with('success', 'Mark has been updated');
     }
 
     /**
@@ -95,6 +110,6 @@ class MarkController extends Controller
     {
         $mark = Mark::find($id);
         $mark->delete();
-        return redirect('/marks')->with('success','Mark has been deleted');
+        return redirect('/marks')->with('success', 'Mark has been deleted');
     }
 }

@@ -12,6 +12,16 @@ class PaperController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function listInJson()
+    {
+        $papers = Paper::all();
+        return response()->json($papers, 200);
+    }
+    public function show($id)
+    {
+        $paper = Paper::find($id);
+        return response()->json($paper, 200);
+    }
     public function index()
     {
         $papers = Paper::all();
@@ -50,10 +60,7 @@ class PaperController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -78,9 +85,9 @@ class PaperController extends Controller
     {
         $paper = Paper::find($id);
         $paper->name = $request->get('name');
-        $paper->description=$request->get('description');
+        $paper->description = $request->get('description');
         $paper->save();
-        return redirect('/papers')->with('success','Paper has been updated');
+        return redirect('/papers')->with('success', 'Paper has been updated');
     }
 
     /**
@@ -91,8 +98,8 @@ class PaperController extends Controller
      */
     public function destroy($id)
     {
-        $paper=Paper::find($id);
+        $paper = Paper::find($id);
         $paper->delete();
-        return redirect('/papers')->with('success','Paper has been deleted');
+        return redirect('/papers')->with('success', 'Paper has been deleted');
     }
 }

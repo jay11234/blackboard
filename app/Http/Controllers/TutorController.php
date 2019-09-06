@@ -17,6 +17,11 @@ class TutorController extends Controller
         $tutors = Tutor::all();
         return view('tutors.index', compact('tutors'));
     }
+    public function listInJson()
+    {
+        $tutors = Tutor::all();
+        return response()->json($tutors,200);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -52,7 +57,8 @@ class TutorController extends Controller
      */
     public function show($id)
     {
-        //
+        $tutor = Tutor::find($id);
+        return response()->json($tutor,200);
     }
 
     /**

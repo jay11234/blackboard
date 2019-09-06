@@ -7,8 +7,8 @@
             <div class="outerBox">
                 <div class="title m-b-md" style="font-family: 'Modak', cursive; font-size:130px;
 ">
-                    <div class="boxed">
-                           Can you hear
+                    <div class="boxed" style=" border: 35px solid grey;">
+                        Can you hear
 
                         Blackboard?
                     </div>

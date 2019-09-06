@@ -18,6 +18,7 @@ class CreateMarksTable extends Migration
             $table->unsignedBigInteger('paper_id');
             $table->foreign('paper_id')->references('id')->on('papers');
             $table->integer('mark');
+            $table->string('assignment');
             $table->date('when');
             $table->timestamps();
         });
