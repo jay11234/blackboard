@@ -45,12 +45,12 @@ class MarkController extends Controller
      */
     public function store(Request $request)
     {
-        $date = date("Y-d-m", strtotime($request->get('when')));
+        $date = date("Y-m-d", strtotime($request->get('when')));
         $mark = new Mark([
             'mark' => $request->get('mark'),
             'when' => $date,
             'assignment'=>$request->get('assignment'),
-            'paper_id' => $request->input('papers')
+            'paper_id' => $request->get('paper')
         ]);
         $mark->save();
         return redirect('/marks')->with('succes', 'Mark has been added');
@@ -91,9 +91,9 @@ class MarkController extends Controller
     public function update(Request $request, $id)
     {
         $mark = Mark::find($id);
-        $date = date("Y-d-m", strtotime($request->get('when')));
+        $date = date("Y-m-d", strtotime($request->get('when')));
         $mark->mark = $request->get('mark');
-        $mark->paper_id = $request->get('paper');
+        $mark->paper_id = $request->get('papers');
         $mark->when = $date;
         $mark->assignment=$request->get('assignment');
         $mark->save();

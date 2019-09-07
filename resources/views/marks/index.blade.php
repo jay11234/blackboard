@@ -35,16 +35,22 @@
             <tr>
                 <td>{{$mark->id}}</td>
                 <td>
-                    @php $id = $mark->paper_id;  @endphp
-                    @php $paper = DB::table('papers')->where('id',{{$id}})->get(); @endphp
+                    @php
+                    $id = $mark->paper_id;
+                    $paper = DB::table('papers')->where('id',$id)->get();
 
-                    {{$paper->name}}
-                    <!-- @foreach($papers as $paper)
-                        @if ($mark->paper_id == $paper->paper_id)
-                            {{$paper->name}}
-                        @endif
-                    
-                    @endforeach -->
+
+                    foreach($papers as $paper)
+                    {
+
+                    if ($mark->paper_id === $paper->id)
+                    {
+                    echo $paper->name;
+
+                    }
+                    }
+
+                    @endphp
                 </td>
                 <td>{{$mark->assignment}}</td>
                 <td>{{$mark->mark}}</td>

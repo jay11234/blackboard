@@ -22,12 +22,10 @@
         @endif
         <form method="post" action="{{ route('marks.store') }}">
             @csrf
+
             <div class="form-group">
-                <label for="id">ID:</label>
-                <input type="text" class="form-control" name="id" />
-            </div>
-            <div class="form-group">
-                <select>
+                <label for="paper_id">Paper:</label>
+                <select >
                     @foreach($papers as $paper)
                     <option value="{{ $paper->id }}" name="paper_id">{{ $paper->name }}</option>
                     @endforeach

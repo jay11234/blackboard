@@ -82,7 +82,7 @@ class ScheduleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        ['paper_id', 'day', 'begin', 'end', 'strength', 'preview'];
+        
         $schedule = Schedule::find($id);
         $schedule->paper_id = $request->get('paper_id');
         $schedule->day = $request->get('day');
