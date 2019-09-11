@@ -25,9 +25,9 @@
 
             <div class="form-group">
                 <label for="paper_id">Paper:</label>
-                <select >
+                <select class="form-control" name="paper_id" id="paper_id">
                     @foreach($papers as $paper)
-                    <option value="{{ $paper->id }}" name="paper_id">{{ $paper->name }}</option>
+                    <option value="{{ $paper->id }}">{{ $paper->name }}</option>
                     @endforeach
                 </select>
             </div>

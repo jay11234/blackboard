@@ -38,7 +38,7 @@ Route::get('tutors/show/{id}', 'TutorController@show');
 
 
 Route::resource('papers','PaperController')->middleware('auth:web');
-Route::resource('marks', 'MarkController');
+Route::resource('marks', 'MarkController')->middleware('auth:web');
 Route::resource('schedules', 'ScheduleController')->middleware('auth:web');
 Route::resource('tutors', 'TutorController')->middleware('auth:web');
  
