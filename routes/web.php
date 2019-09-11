@@ -16,6 +16,10 @@
 //     return view('welcome');
 // });
 
+Route::get('/migrate','CommandController@migrate');
+
+
+
 Route::get('/', 'HomeController@welcome')->name('welcome');
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -34,6 +38,9 @@ Route::get('schedules/show/{id}', 'ScheduleController@show');
 
 Route::get('tutors/list', 'TutorController@listInJson');
 Route::get('tutors/show/{id}', 'TutorController@show');
+
+
+Route::resource('');
 
 
 
