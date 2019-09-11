@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Schedule;
 use Carbon;
+use App\Paper;
 
 class ScheduleController extends Controller
 {
@@ -16,7 +17,13 @@ class ScheduleController extends Controller
     public function index()
     {
         $papers = Paper::all();
-        return view('schedules.index', compact('papers'));
+        $schedules = Schedule::all();
+        return view('schedules.index', compact('schedules','papers'));
+    }
+    public function listInJson()
+    {
+        $schedules = Schedule::all();
+        return response()->json($schedules, 200);
     }
 
     /**
@@ -26,7 +33,8 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        return view('schedules.create');
+        $papers = Paper::all();
+        return view('schedules.create', compact('papers'));
     }
 
     /**
@@ -41,13 +49,13 @@ class ScheduleController extends Controller
         $schedule = new Schedule([
             'paper_id' => $request->get('paper_id'),
             'day' => $request->get('day'),
-            'begin' => \Carbon\Carbon::parse($request->get('begin'))->format('d/m/Y'),
-            'end' => \Carbon\Carbon::parse($request->get('begin'))->format('d/m/Y'),
+            'begin' => \Carbon\Carbon::parse($request->get('begin')),
+            'end' => \Carbon\Carbon::parse($request->get('begin')),
             'strength' => $request->get('strength'),
             'preview' => $request->get('preview')
         ]);
         $schedule->save();
-        return view('/schedules')->with('success', 'Schedule has been added');
+        return redirect('/schedules')->with('success', 'Schedule has been added');
     }
 
     /**
@@ -58,7 +66,8 @@ class ScheduleController extends Controller
      */
     public function show($id)
     {
-        //
+        $schedule = Schedule::find($id);
+        return response()->json($schedule, 200);
     }
 
     /**
@@ -70,7 +79,8 @@ class ScheduleController extends Controller
     public function edit($id)
     {
         $shedule = Schedule::find($id);
-        return view('schedules.edit', compact('schedule'));
+        $papers = Paper::all();
+        return view('schedules.edit', compact('schedule', 'papers'));
     }
 
     /**
@@ -91,7 +101,7 @@ class ScheduleController extends Controller
         $schedule->strength = $request->get('strength');
         $schedule->preview = $request->get('preview');
         $schedule->save();
-        return view('schedules')->with('success','Schedule has been updated');
+        return redirect('/schedules')->with('success','Schedule has been updated');
     }
 
     /**
@@ -104,6 +114,6 @@ class ScheduleController extends Controller
     {
         $schedule = Schedule::find($id);
         $schedule->delete();
-        return view('/schedules')->with('success','Schedule has been deleted');
+        return redirect('/schedules')->with('success','Schedule has been deleted');
     }
 }

@@ -50,7 +50,7 @@ class MarkController extends Controller
             'mark' => $request->get('mark'),
             'when' => $date,
             'assignment'=>$request->get('assignment'),
-            'paper_id' => $request->get('paper')
+            'paper_id' => $request->get('paper_id')
         ]);
         $mark->save();
         return redirect('/marks')->with('succes', 'Mark has been added');
