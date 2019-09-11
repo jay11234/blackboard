@@ -40,7 +40,7 @@ Route::get('tutors/list', 'TutorController@listInJson');
 Route::get('tutors/show/{id}', 'TutorController@show');
 
 
-Route::resource('');
+Route::get('/security','SecurityController@getState');
 
 
 
