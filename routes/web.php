@@ -16,7 +16,7 @@
 //     return view('welcome');
 // });
 
-Route::get('/migrate','CommandController@migrate');
+Route::get('/migrate', 'CommandController@migrate');
 
 
 
@@ -40,15 +40,16 @@ Route::get('tutors/list', 'TutorController@listInJson');
 Route::get('tutors/show/{id}', 'TutorController@show');
 
 
-Route::get('/security','SecurityController@getState');
+Route::get('/security', 'SecurityController@getState');
+Route::get('/securities/sampledata','SecurityController@sampledata');
+Route::post('/securities', 'SecurityController@store');
 
 
 
-Route::resource('papers','PaperController')->middleware('auth:web');
+Route::resource('papers', 'PaperController')->middleware('auth:web');
 Route::resource('marks', 'MarkController')->middleware('auth:web');
 Route::resource('schedules', 'ScheduleController')->middleware('auth:web');
 Route::resource('tutors', 'TutorController')->middleware('auth:web');
- 
+
 
 Auth::routes();
- 
